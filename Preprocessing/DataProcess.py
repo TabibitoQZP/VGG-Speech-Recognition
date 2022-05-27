@@ -1,6 +1,4 @@
 import os
-import shutil
-
 import torch
 import librosa
 import matplotlib.pyplot as plt
@@ -74,4 +72,5 @@ def SaveAsPTH(data_path, root_path):
 if __name__ == '__main__':
     InitDir('../data')
     SaveAsPTH('./original_data', '../data')
+    print('数据预处理完毕, 生成了pth文件!')
 

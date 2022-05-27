@@ -6,6 +6,10 @@ import os
 import shutil
 
 if __name__ == '__main__':
+    # 不同训练次数的模型统一保存到VGGs中
+    if os.path.isdir('./VGGs'):
+        shutil.rmtree('./VGGs')
+    os.mkdir('./VGGs')
     # 加载模型
     mod = VggNet()
     # 当不存在模型时, 保存模型
@@ -23,7 +27,7 @@ if __name__ == '__main__':
         data_set += MyData('./data', str(i))
 
     # 加载数据集加载器
-    data_load = DataLoader(dataset=data_set, batch_size=128, shuffle=True)
+    data_load = DataLoader(dataset=data_set, batch_size=100, shuffle=True)
 
     # 损失函数和优化函数
     loss_function = torch.nn.CrossEntropyLoss()
@@ -37,7 +41,7 @@ if __name__ == '__main__':
         shutil.rmtree('./logs')
     writer = SummaryWriter('logs')
 
-    for i in range(1800):
+    for i in range(3601):
         s = 0
         print(i, 'start!')
         for datas, labels in data_load:
@@ -55,6 +59,10 @@ if __name__ == '__main__':
             writer.add_scalar('loss', s, i//10)
             print('Saving model, please do not break!')
             torch.save(mod.state_dict(), 'VGG16.pth')
+            print('Saving model successfully!')
+        if i % 100 == 0:
+            print('Saving to Archive, please do not break!')
+            torch.save(mod.state_dict(), './VGGs/'+'VGG16_'+str(i//100)+'.pth')
             print('Saving model successfully!')
 
     writer.close()

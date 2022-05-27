@@ -186,4 +186,3 @@ def FileProcess(data_path, out_path):
 
 if __name__ == '__main__':
     FileProcess('./all', './original_data')
-    print('14号傻逼, 草!')

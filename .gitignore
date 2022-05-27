@@ -1,0 +1,8 @@
+*.pth
+*.zip
+img/
+logs/
+data/
+runs/
+TeacherDataMaybe/
+TestData/
